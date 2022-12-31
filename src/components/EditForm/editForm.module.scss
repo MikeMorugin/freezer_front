@@ -1,0 +1,21 @@
+.Add {
+    opacity: 1;
+    background-color: #F9FAFB;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    width: 400px;
+    height: 200px;
+    border: 1px solid #e7e7e7;
+    border-radius: 40px;
+    padding: 20px;
+    margin: auto;
+    z-index: 2;
+    transform: translateY(0);
+    transition: transform 0.2s ease-in-out;
+    h3 {
+        padding: 10px;
+        font-weight: 600;
+        font-size: 18px;
+    }
+  }
