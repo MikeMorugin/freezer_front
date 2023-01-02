@@ -22,14 +22,13 @@ function Freezer () {
     const [isEdit, setIsEdit] = useState(false);
     const [nameValue, setNameValue] = useState("");
     const [amountValue, setAmountValue] = useState(0);
-    const [unitValue, setUnitValue] = useState("");
-    const [unitValueIndex, setUnitValueIndex] = useState(0);
+    const [unitItem, setUnitItem] = useState({id: 0, nameUnit: ''});
     const onAddButtonClick = () => {
         setIsAdded(true);
     }
     const addItem = async (obj) => {
         try {
-            const { data } = await Axios.post('http://10.0.0.4:8080/api/products', obj);
+            const { data } = await Axios.post('http://10.0.0.1:8080/api/products', obj);
             setItems([...items, data]);
         }
         catch (err) {
@@ -39,12 +38,12 @@ function Freezer () {
     }
     const onAddButton = () => {
         if (isAdded) {
-            addItem({name: nameValue, amount: amountValue, unit: unitValue, location: locationName})
+            addItem({name: nameValue, amount: amountValue, unit: unitItem.nameUnit, location: locationName})
             setIsAdded(false);
         }
         else {
             if (isEdit) {
-                editItem({name: nameValue, amount: amountValue, unit: unitValue, location: locationName})
+                editItem({name: nameValue, amount: amountValue, unit: unitItem.nameUnit, location: locationName})
                 setIsEdit(false);
             }
         }
@@ -52,7 +51,7 @@ function Freezer () {
     const onClickDelButton = async (id) => {
         try {
             setItems(items.filter((item) => item.id !== id));
-            await Axios.delete(`http://10.0.0.4:8080/api/products/${id}`)
+            await Axios.delete(`http://10.0.0.1:8080/api/products/${id}`)
         }
         catch (err) {
             alert('Не удалось удалить элемент');
@@ -68,10 +67,9 @@ function Freezer () {
         setIsEdit(true);
     }
     const setUnit = (unitName) => {
-        setUnitValue (unitName);
         itemsUnits.forEach((item, index) => {
             if (item.nameUnit === unitName) {
-                setUnitValueIndex(index);
+                setUnitItem(itemsUnits[index]);
             }
         });
     }
@@ -84,7 +82,7 @@ function Freezer () {
     }
     const editItem = async (obj) => {
         try {
-            const { data } = await Axios.put(`http://10.0.0.4:8080/api/products/${id}`, obj);
+            const { data } = await Axios.put(`http://10.0.0.1:8080/api/products/${id}`, obj);
             setItems([...items.slice(0,index), data, ...items.slice(index+1)]);
         }
         catch (err) {
@@ -118,11 +116,10 @@ function Freezer () {
                    setNameValue={setNameValue}
                    amountValue={amountValue}
                    setAmountValue={setAmountValue}
-                   unitValue={unitValue}
-                   setUnitValue={setUnitValue}
                    onAddButton={onAddButton}
                    itemsUnits={itemsUnits}
-                   unitValueIndex={unitValueIndex} />
+                   unitItem={unitItem}
+                   setUnitItem={setUnitItem} />
             </div>
                 <div className={Style.Cards}>
                     <RenderCard />

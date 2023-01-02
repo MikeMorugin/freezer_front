@@ -23,7 +23,7 @@
     
   }
 .Card {
-    width: 150px;
+    width: 180px;
     height: 80px;
     border: 1px solid #e7e7e7;
     border-radius: 40px;
@@ -47,6 +47,11 @@
       font-size: 16px;
     }
   }
+  .Icons {
+    //padding-left: 20px;
+    float: right;
+    margin-right: 0px;
+}
   .plus {
     cursor: pointer;
   }
@@ -63,10 +68,6 @@
     border-radius: 8px;
     cursor: pointer;
   }
-.Icons {
-    //padding-left: 20px;
-    margin-left: 22px;
-}
 .Delete {
     transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
     cursor: pointer;

@@ -9,19 +9,16 @@ function EditForm ({nameValue,
                     setNameValue, 
                     amountValue,
                     setAmountValue,
-                    unitValue,
                     setUnitValue,
                     onAddButton,
                     itemsUnits,
-                    unitValueIndex}) {
+                    unitItem,
+                    setUnitItem}) {
     const onChangeNameInput = (event) => {
         setNameValue(event.target.value);
       };
     const onChangeAmountInput = (event) => {
-        setAmountValue(event.target.value);
-      };
-    const onChangeUnitInput = (event) => {
-        setUnitValue(event.target.outerText);
+        setAmountValue(event.target.value*100);
       };
     const onAddButtonClick = () => {
         onAddButton()
@@ -55,11 +52,12 @@ function EditForm ({nameValue,
                             >
                                 <TextField onChange={onChangeAmountInput} 
                                             id="AmountInput" 
-                                            value={amountValue} 
+                                            value={amountValue/100} 
                                             type="number"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
+                                            step="0.1"
+                                            //InputLabelProps={{
+                                            //    shrink: true,
+                                            //}}
                                             InputProps={{ inputProps: { min: 0 } }}
                                             label="кол-во" 
                                             variant="outlined" />
@@ -68,14 +66,26 @@ function EditForm ({nameValue,
                         <Grid xs={4}>
                             <Autocomplete
                                 disablePortal
+                                value={unitItem || ''}
+                                onChange={(event, newValue) => {
+                                    if (newValue) {
+                                        setUnitItem(newValue);
+                                        //setUnitValue(unitItem.nameUnit)
+                                    }
+                                  }}
+                                //defaultValue={[itemsUnits[unitValueIndex]]}
+                                //inputValue={inputValue}
+                                //onInputChange={(event, newInputValue) => {
+                                 //   setInputValue(newInputValue);
+                                 //}}
                                 id="combo-box-demo"
-                                onChange={onChangeUnitInput}
                                 options={itemsUnits}
                                 getOptionLabel={(option) => option.nameUnit || ""}
-                                inputValue={unitValue}
                                 sx={{ width: 114, margin: 1}}
+                                //getOptionSelected={(option, value) => option.value === value.value}
+                                isOptionEqualToValue={(option, value) => option.value === value.value}
                                 renderInput={(params) => <TextField {...params} label="ед.изм"/>}
-                            />{console.log([unitValue, unitValueIndex, amountValue, itemsUnits])}
+                            />
                         </Grid>
                         <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                             <div className={Style.AddButton}>

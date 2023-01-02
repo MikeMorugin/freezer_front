@@ -22,9 +22,9 @@ function App() {
   React.useEffect(() => {
     (async () => {
       const [itemsResponse, itemsLocationsResponse, itemsUnitsResponse] = await Promise.all([
-        Axios.get('http://10.0.0.4:8080/api/products'),
-        Axios.get('http://10.0.0.4:8080/api/locations'),
-        Axios.get('http://10.0.0.4:8080/api/units'),
+        Axios.get('http://10.0.0.1:8080/api/products'),
+        Axios.get('http://10.0.0.1:8080/api/locations'),
+        Axios.get('http://10.0.0.1:8080/api/units'),
       ]);
       setItems(itemsResponse.data);
       setItemsLocations(itemsLocationsResponse.data);
