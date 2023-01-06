@@ -25,6 +25,9 @@ function Freezer () {
     const [unitItem, setUnitItem] = useState({id: 0, nameUnit: ''});
     const onAddButtonClick = () => {
         setIsAdded(true);
+        setNameValue("");
+        setAmountValue(0);
+        setUnit("");
     }
     const addItem = async (obj) => {
         try {
@@ -119,7 +122,8 @@ function Freezer () {
                    onAddButton={onAddButton}
                    itemsUnits={itemsUnits}
                    unitItem={unitItem}
-                   setUnitItem={setUnitItem} />
+                   setUnitItem={setUnitItem}
+                   isAdded={isAdded} />
             </div>
                 <div className={Style.Cards}>
                     <RenderCard />

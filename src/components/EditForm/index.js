@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import Style from './editForm.module.scss';
 
 function EditForm ({nameValue, 
@@ -13,7 +14,8 @@ function EditForm ({nameValue,
                     onAddButton,
                     itemsUnits,
                     unitItem,
-                    setUnitItem}) {
+                    setUnitItem,
+                    isAdded}) {
     const onChangeNameInput = (event) => {
         setNameValue(event.target.value);
       };
@@ -53,12 +55,8 @@ function EditForm ({nameValue,
                                 <TextField onChange={onChangeAmountInput} 
                                             id="AmountInput" 
                                             value={amountValue/100} 
-                                            type="number"
-                                            step="0.1"
-                                            //InputLabelProps={{
-                                            //    shrink: true,
-                                            //}}
-                                            InputProps={{ inputProps: { min: 0 } }}
+                                            type="text"
+                                            InputProps={{ inputMode: 'numeric', pattern: '[0-9]*', inputProps: { min: 0 } }}
                                             label="кол-во" 
                                             variant="outlined" />
                             </Box>
@@ -70,26 +68,20 @@ function EditForm ({nameValue,
                                 onChange={(event, newValue) => {
                                     if (newValue) {
                                         setUnitItem(newValue);
-                                        //setUnitValue(unitItem.nameUnit)
                                     }
                                   }}
-                                //defaultValue={[itemsUnits[unitValueIndex]]}
-                                //inputValue={inputValue}
-                                //onInputChange={(event, newInputValue) => {
-                                 //   setInputValue(newInputValue);
-                                 //}}
                                 id="combo-box-demo"
                                 options={itemsUnits}
                                 getOptionLabel={(option) => option.nameUnit || ""}
                                 sx={{ width: 114, margin: 1}}
-                                //getOptionSelected={(option, value) => option.value === value.value}
                                 isOptionEqualToValue={(option, value) => option.value === value.value}
                                 renderInput={(params) => <TextField {...params} label="ед.изм"/>}
                             />
                         </Grid>
                         <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
                             <div className={Style.AddButton}>
-                                <AddCircleOutlineOutlinedIcon fontSize='large' onClick={() => onAddButtonClick()} />
+                                {isAdded ? <AddCircleOutlineOutlinedIcon fontSize='large' onClick={() => onAddButtonClick()} />
+                                        :<SaveOutlinedIcon fontSize='large' onClick={() => onAddButtonClick()} />}
                             </div>
                         </Grid>
                         <Grid xs={12} display="flex" justifyContent="center" alignItems="center">
